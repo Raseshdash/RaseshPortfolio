@@ -206,6 +206,11 @@ function loadSection(section, el) {
            I enjoy debugging production issues, optimizing performance, and writing
            clean, maintainable backend code.
          </p>
+         <p>
+           I regularly work on live production issues, taking ownership
+           of critical fixes under tight SLAs.
+         </p>
+
 
          <!-- SKILLS -->
          <h3 class="section-title">Core Skills</h3>

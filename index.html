@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rasesh Kumar Dash | Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+    <div class="title">
+        <b>Rasesh Kumar Dash</b>
+        <span>Java | Spring Boot | Oracle ASAP</span>
+    </div>
+
+    <div class="actions">
+        <a class="btn" onclick="downloadResume()">Resume</a>
+        <a href="#" class="icon"><i class="bi bi-linkedin"></i></a>
+        <a href="#" class="icon"><i class="bi bi-github"></i></a>
+        <button class="theme-btn" onclick="toggleTheme()">
+            <i class="bi bi-moon"></i>
+        </button>
+    </div>
+</header>
+
+<!-- MAIN LAYOUT -->
+<div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <ul class="menu">
+            <li tabindex="0" class="active" data-label="Home" onclick="loadSection('home', this)">
+                <i class="bi bi-house"></i>
+            </li>
+            <li  tabindex="0" data-label="About" onclick="loadSection('about', this)">
+                <i class="bi bi-person"></i>
+            </li>
+            <li  tabindex="0" data-label="Gallery" onclick="loadSection('gallery', this)">
+                <i class="bi bi-images"></i>
+            </li>
+
+
+            <li tabindex="0"  data-label="Education/Experience" onclick="loadSection('experience', this)">
+                <i class="bi bi-briefcase"></i>
+            </li>
+
+            <li  tabindex="0" data-label="Contact" onclick="loadSection('contact', this)">
+                <i class="bi bi-envelope"></i>
+            </li>
+            <li  tabindex="0" data-label="Why" onclick="loadSection('why', this)">
+                <i class="bi bi-patch-question"></i>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="content" id="content">
+
+    </main>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

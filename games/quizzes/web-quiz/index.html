@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Java Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body {
+          margin: 0;
+          font-family: "Segoe UI", Arial, sans-serif;
+          background: linear-gradient(135deg, #020617, #0f172a);
+          color: #e5e7eb;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+        }
+
+        .quiz-card {
+          width: 100%;
+          max-width: 560px;
+          background: #020617;
+          border-radius: 16px;
+          padding: 24px;
+          box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+        }
+
+        .quiz-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .quiz-header h2 {
+          margin: 0;
+          font-size: 20px;
+        }
+
+        .progress {
+          font-size: 13px;
+          opacity: 0.75;
+        }
+
+        .question {
+          font-size: 16px;
+          margin: 18px 0 14px;
+        }
+
+        .options label {
+          display: block;
+          padding: 12px 14px;
+          margin-bottom: 10px;
+          border-radius: 10px;
+          background: #0f172a;
+          cursor: pointer;
+        }
+
+        .options label:hover {
+          background: rgba(56,189,248,0.15);
+        }
+
+        .actions {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 18px;
+          gap: 10px;
+          flex-wrap: wrap;
+        }
+
+        button {
+          padding: 10px 16px;
+          border-radius: 8px;
+          border: none;
+          cursor: pointer;
+          font-weight: 600;
+        }
+
+        .primary {
+          background: #38bdf8;
+          color: #020617;
+        }
+
+        .outline {
+          background: transparent;
+          color: #38bdf8;
+          border: 1px solid #38bdf8;
+        }
+
+        .danger {
+          background: #f97316;
+          color: #020617;
+        }
+
+        .result {
+          margin-top: 20px;
+          font-size: 16px;
+          font-weight: bold;
+          text-align: center;
+          color: #22c55e;
+        }
+
+        .review {
+          margin-top: 20px;
+        }
+
+        .review-item {
+          background: #0f172a;
+          padding: 14px;
+          border-radius: 10px;
+          margin-bottom: 12px;
+        }
+
+        .correct {
+          color: #22c55e;
+        }
+
+        .wrong {
+          color: #ef4444;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="quiz-card">
+    <div class="quiz-header">
+        <h2>Web Quiz</h2>
+        <div class="progress" id="progress"></div>
+    </div>
+
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+
+    <div class="actions">
+        <button class="outline" onclick="goBack()">⬅ Portfolio</button>
+        <button class="danger" onclick="resetQuiz()">🔄 Reset</button>
+        <button class="primary" id="nextBtn" onclick="nextQuestion()">Next</button>
+    </div>
+
+    <div class="result" id="result"></div>
+    <div class="review" id="review"></div>
+</div>
+
+<script>
+    const quiz = [
+  {
+    q: "What does HTML stand for?",
+    options: [
+      "Hyper Text Markup Language",
+      "High Text Machine Language",
+      "Hyperlinks and Text Markup Language",
+      "Home Tool Markup Language"
+    ],
+    answer: 0
+  },
+  {
+    q: "Which HTML tag is used to create a hyperlink?",
+    options: ["<link>", "<a>", "<href>", "<url>"],
+    answer: 1
+  },
+  {
+    q: "Which HTML tag is used to insert an image?",
+    options: ["<image>", "<img>", "<src>", "<picture>"],
+    answer: 1
+  },
+  {
+    q: "Which attribute is required for the <img> tag?",
+    options: ["title", "alt", "src", "href"],
+    answer: 2
+  },
+  {
+    q: "Which tag is used for the largest heading?",
+    options: ["<h6>", "<h4>", "<heading>", "<h1>"],
+    answer: 3
+  },
+  {
+    q: "What does CSS stand for?",
+    options: [
+      "Colorful Style Sheets",
+      "Creative Style System",
+      "Cascading Style Sheets",
+      "Computer Style Sheets"
+    ],
+    answer: 2
+  },
+  {
+    q: "Which CSS property is used to change text color?",
+    options: ["font-color", "text-color", "color", "background-color"],
+    answer: 2
+  },
+  {
+    q: "Which CSS property controls the text size?",
+    options: ["font-style", "text-size", "font-size", "size"],
+    answer: 2
+  },
+  {
+    q: "Which symbol is used for ID selector in CSS?",
+    options: [".", "#", "*", "&"],
+    answer: 1
+  },
+  {
+    q: "Which symbol is used for class selector in CSS?",
+    options: ["#", ".", "*", "%"],
+    answer: 1
+  },
+  {
+    q: "Which CSS layout model arranges items in rows or columns?",
+    options: ["Grid", "Block", "Inline", "Float"],
+    answer: 0
+  },
+  {
+    q: "Which CSS property is used to create space inside an element?",
+    options: ["margin", "border", "padding", "spacing"],
+    answer: 2
+  },
+  {
+    q: "Which JavaScript keyword is used to declare a variable?",
+    options: ["int", "var", "define", "letvar"],
+    answer: 1
+  },
+  {
+    q: "Which JavaScript keyword is block-scoped?",
+    options: ["var", "let", "function", "static"],
+    answer: 1
+  },
+  {
+    q: "Which symbol is used for single-line comments in JavaScript?",
+    options: ["<!-- -->", "/* */", "//", "#"],
+    answer: 2
+  },
+  {
+    q: "Which function is used to print output in console?",
+    options: ["console.print()", "log()", "console.log()", "print()"],
+    answer: 2
+  },
+  {
+    q: "Which event occurs when a button is clicked?",
+    options: ["onchange", "onmouseover", "onclick", "onload"],
+    answer: 2
+  },
+  {
+    q: "Which method is used to select an element by ID?",
+    options: [
+      "getElementByClass()",
+      "getElementByName()",
+      "getElementById()",
+      "queryElement()"
+    ],
+    answer: 2
+  },
+  {
+    q: "Which keyword is used to define a function in JavaScript?",
+    options: ["method", "function", "define", "func"],
+    answer: 1
+  },
+  {
+    q: "Which operator is used for strict equality?",
+    options: ["==", "=", "===", "!="],
+    answer: 2
+  },
+  {
+    q: "Which JavaScript data type stores true or false?",
+    options: ["String", "Boolean", "Number", "Object"],
+    answer: 1
+  },
+  {
+    q: "Which method converts JSON string into JavaScript object?",
+    options: ["JSON.parse()", "JSON.stringify()", "JSON.convert()", "JSON.object()"],
+    answer: 0
+  },
+  {
+    q: "Which method converts JavaScript object into JSON string?",
+    options: ["JSON.parse()", "JSON.stringify()", "JSON.encode()", "JSON.toText()"],
+    answer: 1
+  },
+  {
+    q: "Which HTTP method is used to send data to server?",
+    options: ["GET", "POST", "FETCH", "SEND"],
+    answer: 1
+  },
+  {
+    q: "Which status code means 'Success'?",
+    options: ["404", "500", "200", "301"],
+    answer: 2
+  }
+];
+
+    let index = 0;
+    let score = 0;
+    let userAnswers = [];
+
+function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    function loadQuestion() {
+      const q = quiz[index];
+      document.getElementById("question").textContent = q.q;
+      document.getElementById("progress").textContent =
+        `Question ${index + 1} / ${quiz.length}`;
+
+      document.getElementById("options").innerHTML =
+        q.options.map((opt, i) => `
+          <label>
+            <input type="radio" name="opt" value="${i}">
+            ${opt}
+          </label>
+        `).join("");
+
+      document.getElementById("nextBtn").textContent =
+        index === quiz.length - 1 ? "Submit" : "Next";
+    }
+
+    function nextQuestion() {
+      const selected = document.querySelector("input[name=opt]:checked");
+      if (!selected) {
+        alert("Please select an answer");
+        return;
+      }
+
+      const answer = parseInt(selected.value);
+      userAnswers.push(answer);
+
+      if (answer === quiz[index].answer) score++;
+
+      index++;
+
+      if (index < quiz.length) {
+
+        loadQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      document.getElementById("question").textContent = "🎉 Quiz Completed!";
+      document.getElementById("options").innerHTML = "";
+      document.getElementById("progress").textContent = "";
+      document.getElementById("nextBtn").style.display = "none";
+
+      document.getElementById("result").textContent =
+        `Your Score: ${score} / ${quiz.length}`;
+
+      const review = document.getElementById("review");
+      review.innerHTML = "<h3>Review Answers</h3>";
+
+      quiz.forEach((q, i) => {
+        const correct = q.answer === userAnswers[i];
+        review.innerHTML += `
+          <div class="review-item">
+            <b>Q${i + 1}. ${q.q}</b><br>
+            Your Answer:
+            <span class="${correct ? 'correct' : 'wrong'}">
+              ${q.options[userAnswers[i]]}
+            </span><br>
+            Correct Answer:
+            <span class="correct">${q.options[q.answer]}</span>
+          </div>
+        `;
+      });
+    }
+
+    function resetQuiz() {
+  index = 0;
+  score = 0;
+  userAnswers = [];
+
+  shuffleArray(quiz); // 🔥 reshuffle on reset
+
+  document.getElementById("result").textContent = "";
+  document.getElementById("review").innerHTML = "";
+  document.getElementById("nextBtn").style.display = "inline-block";
+  loadQuestion();
+}
+
+
+    function goBack() {
+      window.location.href = "../../../";
+    }
+shuffleArray(quiz);
+    loadQuestion();
+</script>
+
+</body>
+</html>

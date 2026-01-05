@@ -511,11 +511,33 @@ function loadSection(section, el) {
 case "games":
   content.innerHTML = `
     <div class="card games-section">
-      <h2>🎮 Mini Games</h2>
-      <p class="subtitle">Fun projects built with pure JavaScript</p>
+      <h2>🎮 Mini Games & Quizzes</h2>
+      <p class="subtitle">Games & skill-based quizzes built with JavaScript</p>
 
       <div class="game-grid">
+<!-- QUIZZES -->
+        <div class="game-card" onclick="openGame('games/quizzes/java-quiz/')">
+          <div class="game-icon">☕</div>
+          <h3>Java Quiz</h3>
+          <p>Core Java & OOP multiple choice quiz</p>
+          <span class="play-btn">Start Quiz →</span>
+        </div>
 
+        <div class="game-card" onclick="openGame('games/quizzes/sql-quiz/')">
+          <div class="game-icon">🗄️</div>
+          <h3>SQL Quiz</h3>
+          <p>Queries, joins & database concepts</p>
+          <span class="play-btn">Start Quiz →</span>
+        </div>
+
+        <div class="game-card" onclick="openGame('games/quizzes/web-quiz/')">
+          <div class="game-icon">🌐</div>
+          <h3>HTML / CSS / JS Quiz</h3>
+          <p>Frontend fundamentals & JS logic</p>
+          <span class="play-btn">Start Quiz →</span>
+        </div>
+
+        <!-- GAMES -->
         <div class="game-card" onclick="openGame('games/guessGame/')">
           <div class="game-icon">🎯</div>
           <h3>Number Guess</h3>
@@ -536,6 +558,7 @@ case "games":
           <p>Play against computer AI</p>
           <span class="play-btn">Play Game →</span>
         </div>
+
 
       </div>
     </div>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Java Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body {
+          margin: 0;
+          font-family: "Segoe UI", Arial, sans-serif;
+          background: linear-gradient(135deg, #020617, #0f172a);
+          color: #e5e7eb;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+        }
+
+        .quiz-card {
+          width: 100%;
+          max-width: 560px;
+          background: #020617;
+          border-radius: 16px;
+          padding: 24px;
+          box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+        }
+
+        .quiz-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .quiz-header h2 {
+          margin: 0;
+          font-size: 20px;
+        }
+
+        .progress {
+          font-size: 13px;
+          opacity: 0.75;
+        }
+
+        .question {
+          font-size: 16px;
+          margin: 18px 0 14px;
+        }
+
+        .options label {
+          display: block;
+          padding: 12px 14px;
+          margin-bottom: 10px;
+          border-radius: 10px;
+          background: #0f172a;
+          cursor: pointer;
+        }
+
+        .options label:hover {
+          background: rgba(56,189,248,0.15);
+        }
+
+        .actions {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 18px;
+          gap: 10px;
+          flex-wrap: wrap;
+        }
+
+        button {
+          padding: 10px 16px;
+          border-radius: 8px;
+          border: none;
+          cursor: pointer;
+          font-weight: 600;
+        }
+
+        .primary {
+          background: #38bdf8;
+          color: #020617;
+        }
+
+        .outline {
+          background: transparent;
+          color: #38bdf8;
+          border: 1px solid #38bdf8;
+        }
+
+        .danger {
+          background: #f97316;
+          color: #020617;
+        }
+
+        .result {
+          margin-top: 20px;
+          font-size: 16px;
+          font-weight: bold;
+          text-align: center;
+          color: #22c55e;
+        }
+
+        .review {
+          margin-top: 20px;
+        }
+
+        .review-item {
+          background: #0f172a;
+          padding: 14px;
+          border-radius: 10px;
+          margin-bottom: 12px;
+        }
+
+        .correct {
+          color: #22c55e;
+        }
+
+        .wrong {
+          color: #ef4444;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="quiz-card">
+    <div class="quiz-header">
+        <h2>☕ Java Quiz</h2>
+        <div class="progress" id="progress"></div>
+    </div>
+
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+
+    <div class="actions">
+        <button class="outline" onclick="goBack()">⬅ Portfolio</button>
+        <button class="danger" onclick="resetQuiz()">🔄 Reset</button>
+        <button class="primary" id="nextBtn" onclick="nextQuestion()">Next</button>
+    </div>
+
+    <div class="result" id="result"></div>
+    <div class="review" id="review"></div>
+</div>
+
+<script>
+    const quiz = [
+  {
+    q: "Which keyword is used to inherit a class in Java?",
+    options: ["this", "super", "extends", "implements"],
+    answer: 2
+  },
+  {
+    q: "Which collection does NOT allow duplicate values?",
+    options: ["List", "Set", "Map", "ArrayList"],
+    answer: 1
+  },
+  {
+    q: "Which method is the entry point of a Java program?",
+    options: ["start()", "main()", "run()", "init()"],
+    answer: 1
+  },
+  {
+    q: "Which interface is used to achieve abstraction?",
+    options: ["class", "abstract class", "interface", "object"],
+    answer: 2
+  },
+  {
+    q: "Which JVM memory area stores class metadata?",
+    options: ["Heap", "Stack", "Metaspace", "PC Register"],
+    answer: 2
+  },
+  {
+    q: "Which keyword prevents method overriding?",
+    options: ["static", "final", "private", "protected"],
+    answer: 1
+  },
+  {
+    q: "Which exception is unchecked?",
+    options: ["IOException", "SQLException", "NullPointerException", "FileNotFoundException"],
+    answer: 2
+  },
+  {
+    q: "Which collection maintains insertion order?",
+    options: ["HashSet", "TreeSet", "LinkedHashSet", "Set"],
+    answer: 2
+  },
+  {
+    q: "Which keyword is used to create an object?",
+    options: ["class", "object", "new", "create"],
+    answer: 2
+  },
+  {
+    q: "Which Java feature supports runtime polymorphism?",
+    options: ["Overloading", "Overriding", "Encapsulation", "Abstraction"],
+    answer: 1
+  },
+  {
+    q: "Which access modifier allows visibility within package only?",
+    options: ["private", "protected", "default", "public"],
+    answer: 2
+  },
+  {
+    q: "Which keyword is used to handle exceptions?",
+    options: ["catch", "throw", "throws", "All of the above"],
+    answer: 3
+  },
+  {
+    q: "Which class is the parent of all classes in Java?",
+    options: ["Main", "System", "Object", "Class"],
+    answer: 2
+  },
+  {
+    q: "Which loop is guaranteed to execute at least once?",
+    options: ["for", "while", "do-while", "foreach"],
+    answer: 2
+  },
+  {
+    q: "Which package contains Scanner class?",
+    options: ["java.util", "java.io", "java.lang", "java.net"],
+    answer: 0
+  },
+  {
+    q: "Which collection allows key-value pairs?",
+    options: ["List", "Set", "Map", "Queue"],
+    answer: 2
+  },
+  {
+    q: "Which keyword refers to the current object?",
+    options: ["this", "super", "self", "object"],
+    answer: 0
+  },
+  {
+    q: "Which method compares string values?",
+    options: ["==", "equals()", "compare()", "match()"],
+    answer: 1
+  },
+  {
+    q: "Which stream is used to read data?",
+    options: ["OutputStream", "InputStream", "PrintStream", "Writer"],
+    answer: 1
+  },
+  {
+    q: "Which keyword is used for multiple inheritance in Java?",
+    options: ["extends", "implements", "inherit", "interface"],
+    answer: 1
+  },
+  {
+    q: "Which Java version introduced lambda expressions?",
+    options: ["Java 5", "Java 6", "Java 7", "Java 8"],
+    answer: 3
+  },
+  {
+    q: "Which collection is synchronized?",
+    options: ["ArrayList", "HashMap", "Vector", "HashSet"],
+    answer: 2
+  },
+  {
+    q: "Which operator is used for logical AND?",
+    options: ["&", "&&", "|", "||"],
+    answer: 1
+  },
+  {
+    q: "Which keyword is used to define a constant?",
+    options: ["static", "final", "const", "define"],
+    answer: 1
+  },
+  {
+    q: "Which block always executes whether exception occurs or not?",
+    options: ["try", "catch", "throw", "finally"],
+    answer: 3
+  }
+];
+
+
+    let index = 0;
+    let score = 0;
+    let userAnswers = [];
+
+function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    function loadQuestion() {
+      const q = quiz[index];
+      document.getElementById("question").textContent = q.q;
+      document.getElementById("progress").textContent =
+        `Question ${index + 1} / ${quiz.length}`;
+
+      document.getElementById("options").innerHTML =
+        q.options.map((opt, i) => `
+          <label>
+            <input type="radio" name="opt" value="${i}">
+            ${opt}
+          </label>
+        `).join("");
+
+      document.getElementById("nextBtn").textContent =
+        index === quiz.length - 1 ? "Submit" : "Next";
+    }
+
+    function nextQuestion() {
+      const selected = document.querySelector("input[name=opt]:checked");
+      if (!selected) {
+        alert("Please select an answer");
+        return;
+      }
+
+      const answer = parseInt(selected.value);
+      userAnswers.push(answer);
+
+      if (answer === quiz[index].answer) score++;
+
+      index++;
+
+      if (index < quiz.length) {
+
+        loadQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      document.getElementById("question").textContent = "🎉 Quiz Completed!";
+      document.getElementById("options").innerHTML = "";
+      document.getElementById("progress").textContent = "";
+      document.getElementById("nextBtn").style.display = "none";
+
+      document.getElementById("result").textContent =
+        `Your Score: ${score} / ${quiz.length}`;
+
+      const review = document.getElementById("review");
+      review.innerHTML = "<h3>Review Answers</h3>";
+
+      quiz.forEach((q, i) => {
+        const correct = q.answer === userAnswers[i];
+        review.innerHTML += `
+          <div class="review-item">
+            <b>Q${i + 1}. ${q.q}</b><br>
+            Your Answer:
+            <span class="${correct ? 'correct' : 'wrong'}">
+              ${q.options[userAnswers[i]]}
+            </span><br>
+            Correct Answer:
+            <span class="correct">${q.options[q.answer]}</span>
+          </div>
+        `;
+      });
+    }
+
+    function resetQuiz() {
+  index = 0;
+  score = 0;
+  userAnswers = [];
+
+  shuffleArray(quiz); // 🔥 reshuffle on reset
+
+  document.getElementById("result").textContent = "";
+  document.getElementById("review").innerHTML = "";
+  document.getElementById("nextBtn").style.display = "inline-block";
+  loadQuestion();
+}
+
+
+    function goBack() {
+      window.location.href = "../../../";
+    }
+shuffleArray(quiz);
+    loadQuestion();
+</script>
+
+</body>
+</html>

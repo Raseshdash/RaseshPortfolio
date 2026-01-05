@@ -41,7 +41,7 @@ function startTimer() {
 function loadQuestion() {
 if (index >= quiz.length) {
   showResult();
-  return;
+  return;}
 
   const q = quiz[index];
   document.getElementById("question").textContent = q.q;

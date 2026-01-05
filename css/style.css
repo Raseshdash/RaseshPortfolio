@@ -1,0 +1,112 @@
+body {
+          margin: 0;
+          font-family: "Segoe UI", Arial, sans-serif;
+          background: linear-gradient(135deg, #020617, #0f172a);
+          color: #e5e7eb;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+        }
+
+        .quiz-card {
+          width: 100%;
+          max-width: 560px;
+          background: #020617;
+          border-radius: 16px;
+          padding: 24px;
+          box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+        }
+
+        .quiz-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .quiz-header h2 {
+          margin: 0;
+          font-size: 20px;
+        }
+
+        .progress {
+          font-size: 13px;
+          opacity: 0.75;
+        }
+
+        .question {
+          font-size: 16px;
+          margin: 18px 0 14px;
+        }
+
+        .options label {
+          display: block;
+          padding: 12px 14px;
+          margin-bottom: 10px;
+          border-radius: 10px;
+          background: #0f172a;
+          cursor: pointer;
+        }
+
+        .options label:hover {
+          background: rgba(56,189,248,0.15);
+        }
+
+        .actions {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 18px;
+          gap: 10px;
+          flex-wrap: wrap;
+        }
+
+        button {
+          padding: 10px 16px;
+          border-radius: 8px;
+          border: none;
+          cursor: pointer;
+          font-weight: 600;
+        }
+
+        .primary {
+          background: #38bdf8;
+          color: #020617;
+        }
+
+        .outline {
+          background: transparent;
+          color: #38bdf8;
+          border: 1px solid #38bdf8;
+        }
+
+        .danger {
+          background: #f97316;
+          color: #020617;
+        }
+
+        .result {
+          margin-top: 20px;
+          font-size: 16px;
+          font-weight: bold;
+          text-align: center;
+          color: #22c55e;
+        }
+
+        .review {
+          margin-top: 20px;
+        }
+
+        .review-item {
+          background: #0f172a;
+          padding: 14px;
+          border-radius: 10px;
+          margin-bottom: 12px;
+        }
+
+        .correct {
+          color: #22c55e;
+        }
+
+        .wrong {
+          color: #ef4444;
+        }

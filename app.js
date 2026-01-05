@@ -380,7 +380,7 @@ function loadSection(section, el) {
             </div>
           </div>
 
-          <div class="timeline-item">
+          <div class="timeline-item highlight-item">
             <span class="dot"></span>
             <div class="timeline-card">
               <h4>Java Backend Developer (Intern / Project)</h4>

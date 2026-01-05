@@ -24,7 +24,13 @@
 
 <!-- TOP BAR -->
 <header class="topbar">
-    <div class="title">
+    <!-- Profile Image (mobile only) -->
+    <img src="assets/profile.png"
+         alt="Rasesh Kumar Dash"
+         class="title-avatar">
+
+    <!-- Text (desktop only) -->
+    <div class="title-text">
         <b>Rasesh Kumar Dash</b>
         <span>Java | Spring Boot | Oracle ASAP</span>
     </div>
@@ -42,6 +48,9 @@
         <a href="mailto:raseshdash.hathway@gmail.com" aria-label="Send Email" class="icon" title="Email">
             <i class="bi bi-envelope"></i>
         </a>
+        <button class="mobile-menu-btn" onclick="toggleMobileSidebar()">
+            <i class="bi bi-list"></i>
+        </button>
 
         <button class="theme-btn" onclick="toggleTheme()">
             <i class="bi bi-moon"></i>
@@ -65,7 +74,7 @@
                 <i class="bi bi-images"></i>
             </li>
 
-            <li tabindex="0"  data-label="Education/Experience" onclick="loadSection('experience', this)">
+            <li tabindex="0"  data-label="Experience" onclick="loadSection('experience', this)">
                 <i class="bi bi-briefcase"></i>
             </li>
 
@@ -88,6 +97,21 @@
     </main>
 
 </div>
+<!-- MOBILE SIDEBAR -->
+<div class="mobile-sidebar" id="mobileSidebar">
+    <ul>
+        <li onclick="loadSection('home', document.querySelector('[data-label=Home]')); closeMobileSidebar()">Home</li>
+        <li onclick="loadSection('about', document.querySelector('[data-label=About]')); closeMobileSidebar()">About</li>
+        <li onclick="loadSection('gallery', document.querySelector('[data-label=Gallery]')); closeMobileSidebar()">Gallery</li>
+        <li onclick="loadSection('experience', document.querySelector('[data-label=Experience]')); closeMobileSidebar()">Experience</li>
+        <li onclick="loadSection('games', document.querySelector('[data-label=Games]')); closeMobileSidebar()">Games</li>
+        <li onclick="loadSection('contact', document.querySelector('[data-label=Contact]')); closeMobileSidebar()">Contact</li>
+        <li onclick="loadSection('why', document.querySelector('[data-label=Why]')); closeMobileSidebar()">Why</li>
+    </ul>
+</div>
+<!--<li tabindex="0"  data-label="Education/Experience" onclick="loadSection('experience', this)">
+    <i class="bi bi-briefcase"></i>
+</li>-->
 <script src="https://web3forms.com/client/script.js" async defer></script>
 
 <script src="app.js"></script>

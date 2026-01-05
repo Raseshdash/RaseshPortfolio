@@ -578,7 +578,13 @@ function downloadResume() {
 
 function setActiveMenu(el) {
     document.querySelectorAll('.menu li').forEach(i => i.classList.remove('active'));
+        if (!el) return; // ✅ SAFETY GUARD
+
     el.classList.add('active');
+}
+function activateByLabel(label) {
+    const el = document.querySelector(`.menu li[data-label="${label}"]`);
+    loadSection(label.toLowerCase(), el);
 }
 
 /* THEME TOGGLE */
@@ -816,4 +822,11 @@ function reloadWeb3Forms() {
     script.async = true;
     script.defer = true;
     document.body.appendChild(script);
+}
+function toggleMobileSidebar() {
+    document.getElementById("mobileSidebar").classList.toggle("open");
+}
+
+function closeMobileSidebar() {
+    document.getElementById("mobileSidebar").classList.remove("open");
 }

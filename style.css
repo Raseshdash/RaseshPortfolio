@@ -55,6 +55,7 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
+
 }
 
 /* Profile image */
@@ -65,11 +66,18 @@ body {
     object-fit: cover;
     display: none;              /* hidden on desktop */
     border: 2px solid var(--accent);
+    cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
+.title-avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 3px rgba(56,189,248,0.35);
+}
 /* Desktop text */
 .title-text b {
     font-size: 15px;
+     cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .title-text span {
     display: block;

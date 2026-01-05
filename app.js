@@ -830,3 +830,8 @@ function toggleMobileSidebar() {
 function closeMobileSidebar() {
     document.getElementById("mobileSidebar").classList.remove("open");
 }
+function goHome() {
+    const homeMenu = document.querySelector('.menu li[data-label="Home"]');
+    loadSection('home', homeMenu);
+    closeMobileSidebar?.();
+}
